@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      <home-manager/nixos>
     ];
 
   # Bootloader.
@@ -130,4 +131,13 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
+  home-manager.users.ray = { pkgs, ... }: {
+    # The state version is required and should stay at the version you
+    # originally installed.
+    home.stateVersion = "23.11";
+
+    home.packages = with pkgs; [
+      htop
+    ];
+  };
 }
