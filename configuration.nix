@@ -139,5 +139,7 @@
     home.packages = with pkgs; [
       htop
     ];
+
+    programs.bash.enable = true;
   };
 }
