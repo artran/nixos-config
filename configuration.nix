@@ -8,7 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      <home-manager/nixos>
     ];
 
   # Bootloader.
@@ -88,6 +87,8 @@
     description = "Ray";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
+      alacritty
+      brave
     ];
   };
 
@@ -97,12 +98,13 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    alacritty
-    brave
     git
+    htop
     neovim
     tmux
   ];
+
+  environment.variables.EDITOR = "neovim";
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -130,16 +132,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
-  home-manager.users.ray = { pkgs, ... }: {
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "23.11";
-
-    home.packages = with pkgs; [
-      htop
-    ];
-
-    programs.bash.enable = true;
-  };
 }
